@@ -5,7 +5,7 @@
 All API requests should be made to the following base URL:
 
 ```
-https://api.market22.co/api/v3
+https://api.market22.co/api
 ```
 
 ## Authentication
