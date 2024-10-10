@@ -267,19 +267,25 @@ By following these steps and best practices, you can ensure that your applicatio
 
 Here are the primary webhook events related to orders:
 
-1. **Order Created (`order.created`)**: Triggered when a new order is created. This event can be used to initiate any setup or provisioning processes required for the order.
+1. **Product Approved (`product.approved`)**: Triggered when a product is approved. This event can be used to initiate any setup or provisioning processes in your internal systems.
 
-2. **Order Paid (`order.paid`)**: Triggered when an order's payment is successfully processed. This event is crucial for confirming the transaction and possibly granting access to the purchased product or service.
+2. **Product Updated (`product.updated`)**: Triggered when a product is updated.
 
-3. **Order Abandoned (`order.abandoned`)**: Triggered when an order is left incomplete or not paid. This can be used to send reminders or follow-up communications to the customer.
+3. **Product Deactivated (`product.deactivated`)**: Triggered when a product is deactivated.
 
-4. **Subscription Renewed (`order.subscription_renewed`)**: Triggered when a subscription is successfully renewed. This event can be used to update billing cycles or notify the customer of the renewal.
+4. **Order Created (`order.created`)**: Triggered when a new order is created. This event can be used to initiate any setup or provisioning processes required for the order.
 
-5. **Subscription Payment Failed (`order.subscription_payment_failed`)**: Triggered when a payment for a subscription renewal fails. This can be used to alert the customer and prompt them to update their payment information.
+5. **Order Paid (`order.paid`)**: Triggered when an order's payment is successfully processed. This event is crucial for confirming the transaction and possibly granting access to the purchased product or service.
 
-6. **Subscription Updated (`order.subscription_updated`)**: Triggered when a subscription's plan or details are changed. This event can be used to adjust billing or service levels accordingly.
+6. **Order Abandoned (`order.abandoned`)**: Triggered when an order is left incomplete or not paid. This can be used to send reminders or follow-up communications to the customer.
 
-7. **Subscription Cancelled (`order.subscription_cancelled`)**: Triggered when a subscription is cancelled. This event can be used to stop any recurring services or notify the customer of the cancellation.
+7. **Subscription Renewed (`order.subscription_renewed`)**: Triggered when a subscription is successfully renewed. This event can be used to update billing cycles or notify the customer of the renewal.
+
+8. **Subscription Payment Failed (`order.subscription_payment_failed`)**: Triggered when a payment for a subscription renewal fails. This can be used to alert the customer and prompt them to update their payment information.
+
+9. **Subscription Updated (`order.subscription_updated`)**: Triggered when a subscription's plan or details are changed. This event can be used to adjust billing or service levels accordingly.
+
+10. **Subscription Cancelled (`order.subscription_cancelled`)**: Triggered when a subscription is cancelled. This event can be used to stop any recurring services or notify the customer of the cancellation.
 
 ### Handling Webhook Events
 
