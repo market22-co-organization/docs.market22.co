@@ -129,8 +129,10 @@ When Market22 sends a webhook event to your endpoint, it includes the secret in 
 
 Upon receiving a webhook request, your application should:
 
-1. Extract the `x-market22-webhook-secret` from the request headers.
-2. Compare this secret with the expected secret you provided during product configuration.
+1. Extract the `x-market22-signature` and `x-market22-timestamp` from the request headers.
+2. Verify timestamp of request to make sure the request is still valid.
+3. Generate a signature using received timestamp and your copy of your Webhook secret.
+4. Compare this generated secret with the secret you received from the webhook.
 
 ### Example Verification Code
 
@@ -157,7 +159,7 @@ app.post("/webhook-endpoint", (req, res) => {
     return res.status(401).send('Unauthorized: Timestamp is too old or invalid');
   }
 
-  // Recreate the expected signature using the same secret and method as the sender
+  // Recreate the expected signature using the same secret and method as 
   const expectedSignature = crypto
     .createHmac('sha256', process.env.MARKET22_WEBHOOK_SECRET)
     .update(receivedTimestamp + JSON.stringify(req.body))
