@@ -260,7 +260,7 @@ Market22 provides several query parameters that can be used to customize the che
   **Example Usage**:
 
   ```
-  https://www.market22.co/checkout/:id/pay?email=user@example.com
+  https://www.market22.co/checkout/:id/pay?firstName=john
   ```
 
 - **Last Name Query Parameter**: Including a `lastName` query parameter in the checkout URL allows you to pre-fill the last name field. This is beneficial for users who are redirected from your application, as it provides a seamless transition and reduces the need for manual input.
@@ -268,7 +268,7 @@ Market22 provides several query parameters that can be used to customize the che
   **Example Usage**:
 
   ```
-  https://www.market22.co/checkout/:id/pay?email=user@example.com
+  https://www.market22.co/checkout/:id/pay?lastName=doe
   ```
 
   When this parameter is used, a session is created, which means that the data persists across page refreshes. This gives the user a session-like experience, as if they were continuously interacting with your application. It is particularly useful if you want to enforce the use of a specific email address for the checkout process.
