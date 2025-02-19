@@ -245,9 +245,25 @@ Market22 provides several query parameters that can be used to customize the che
 
   This URL will automatically select the plan associated with `plan_id` for the user, streamlining the checkout process. A session is created, ensuring that the selected plan persists across page refreshes.
 
-#### 2. Pre-filling Email Address
+#### 2. Pre-filling Customer Information
 
 - **Email Query Parameter**: Including an `email` query parameter in the checkout URL allows you to pre-fill the email address field. This is beneficial for users who are redirected from your application, as it provides a seamless transition and reduces the need for manual input.
+
+  **Example Usage**:
+
+  ```
+  https://www.market22.co/checkout/:id/pay?email=user@example.com
+  ```
+
+- **First Name Query Parameter**: Including a `firstName` query parameter in the checkout URL allows you to pre-fill the first name field. This is beneficial for users who are redirected from your application, as it provides a seamless transition and reduces the need for manual input.
+
+  **Example Usage**:
+
+  ```
+  https://www.market22.co/checkout/:id/pay?email=user@example.com
+  ```
+
+- **Last Name Query Parameter**: Including a `lastName` query parameter in the checkout URL allows you to pre-fill the last name field. This is beneficial for users who are redirected from your application, as it provides a seamless transition and reduces the need for manual input.
 
   **Example Usage**:
 
