@@ -138,17 +138,44 @@ Here is a basic example of how you might implement webhook secret verification i
 
 ```typescript
 const express = require("express");
+const crypto = require('crypto');
+
 const app = express();
+
 app.post("/webhook-endpoint", (req, res) => {
-  const receivedSecret = req.headers["x-market22-webhook-secret"];
-  const expectedSecret = process.env.MARKET22_WEBHOOK_SECRET; // Store your secret securely
-  if (receivedSecret === expectedSecret) {
-    // Process the webhook event
-    res.status(200).send("Webhook verified and processed");
-  } else {
-    // Reject the request
-    res.status(401).send("Unauthorized: Invalid webhook secret");
+  const receivedSignature = req.headers['x-market22-signature'];
+  const receivedTimestamp = req.headers['x-market22-timestamp'];
+
+  if (!receivedSignature || !receivedTimestamp) {
+    return res.status(401).send('Unauthorized: Missing signature or timestamp');
   }
+
+  // Replay protection: Allow a 3-minute window (adjust as needed, recommended time is 3 minutes)
+  const now = Date.now();
+  const timestampNum = parseInt(receivedTimestamp, 10);
+  if (Math.abs(now - timestampNum) > 3 * 60 * 1000) {
+    return res.status(401).send('Unauthorized: Timestamp is too old or invalid');
+  }
+
+  // Recreate the expected signature using the same secret and method as the sender
+  const expectedSignature = crypto
+    .createHmac('sha256', process.env.MARKET22_WEBHOOK_SECRET)
+    .update(receivedTimestamp + JSON.stringify(req.body))
+    .digest('hex');
+
+  // Use a constant-time comparison to prevent timing attacks
+  const receivedBuffer = Buffer.from(receivedSignature, 'utf8');
+  const expectedBuffer = Buffer.from(expectedSignature, 'utf8');
+
+  if (
+    receivedBuffer.length !== expectedBuffer.length ||
+    !crypto.timingSafeEqual(receivedBuffer, expectedBuffer)
+  ) {
+    return res.status(401).send('Unauthorized: Invalid signature');
+  }
+
+  // If verification passes, continue to process the webhook
+  next();
 });
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
